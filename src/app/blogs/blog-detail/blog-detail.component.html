@@ -1,0 +1,15 @@
+<div *ngIf="isLoading" style="width: 100vw; height: 50vh; display: grid; place-items: center;">
+    <app-loading-spinner></app-loading-spinner>
+</div>
+<div class="blog-card" *ngIf="!isLoading">
+    <div class="edit-section">
+        <p class="date">{{ blog.createdAt | date:'MM/dd/yyyy h:mm a'}}</p>
+        <a *ngIf="user._id == blog.author._id" [routerLink]="'/blog/' + blog._id + '/edit'">Edit</a>
+    </div>
+    <h1 class="title">{{blog.title}}</h1>
+    <p class="author">By: {{blog.author.first}} {{blog.author.last}}</p>
+    <div>
+        <img src="../../../assets/images/pexels-darlene-alderson-4385547.jpg" alt="">
+    </div>
+    <p class="text">{{blog.content}}</p>
+</div>
