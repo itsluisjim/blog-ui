@@ -1,0 +1,10 @@
+<nav class="header-nav">
+    <div class="header-container">
+      <a href="#" class="header-title">BlogAway</a>
+      <div class="header-buttons" *ngIf="isAuthenticated">
+        <a href="#" class="header-button">Home</a>
+        <a href="#" class="header-button">Profile</a>
+        <button class="header-button header-logout-button" (click)="onLogout()">Logout</button>
+      </div>
+    </div>
+</nav>
