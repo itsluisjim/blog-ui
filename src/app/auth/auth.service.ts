@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
 import { User } from './user.model';
 import { Router } from '@angular/router';
 
@@ -27,6 +27,7 @@ export class AuthService {
         email,
       })
       .pipe(
+        catchError(this.errorHandler),
         tap((response) => {
           // tap into response data to create a user
           this.handleAuthentication(response.data.user, response.data.token);
@@ -41,6 +42,7 @@ export class AuthService {
         password: password,
       })
       .pipe(
+        catchError(this.errorHandler),
         tap((response) => {
           // tap into response data to create a user
           this.handleAuthentication(response.data.user, response.data.token);
@@ -144,6 +146,22 @@ export class AuthService {
 
     return remainingTime;
   }
-}
 
-// userData	{"username":"ChuchoBenitez11","id":"65fe5f04c5559bfc4f90df8c","_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuZXdVc2VyIjp7InVzZXJuYW1lIjoiQ2h1Y2hvQmVuaXRlejExIiwiZW1haWwiOiJDYmVuaXRlekBnbWFpbC5jb20iLCJmaXJzdCI6IkNodWNobyIsImxhc3QiOiJCZW5pdGV6IiwiYWRtaW4iOnRydWUsIl9pZCI6IjY1ZmU1ZjA0YzU1NTliZmM0ZjkwZGY4YyJ9LCJpYXQiOjE3MTEzNDM5MjAsImV4cCI6MTcxMTM0Mzk4MH0.LSCEu0kiVLGqaEWw4ks2Ge322xw3F61MwCnWSRwMLAA","first":"Chucho","last":"Benitez","email":"Cbenitez@gmail.com","admin":true}
+  private errorHandler(errorResponse: HttpErrorResponse) {
+    let errorMessage = 'An unknown error occured.';
+    if (!errorResponse.error || !errorResponse.error.errors) {
+      return throwError(() => new Error(errorMessage));
+    }
+
+    const errorMessages: string[] = [];
+
+    const errors = errorResponse.error.errors;
+    for (const error of errors) {
+        if (error.message) {
+            errorMessages.push(error.message);
+        }
+    }
+
+    return throwError(() => errorMessages);
+  } 
+}

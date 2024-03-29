@@ -57,6 +57,7 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
             this.blog = blog;
 
             console.log('Inside tap -Blog Detail');
+            console.log(blog);
 
             this.isLoading = false;
           })

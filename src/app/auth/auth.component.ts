@@ -16,6 +16,7 @@ export class AuthComponent {
 
   isLoginMode = true;
   isLoading = false;
+  errors: String[] = [];
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -51,8 +52,9 @@ export class AuthComponent {
         this.isLoading = false;
         this.router.navigate(['/feed']);
       },
-      error: (error: any) => {
-        console.log(error)
+      error: (error: String[]) => {
+        this.isLoading = false;
+        this.errors = error;
       },
       complete() {}, 
     })
