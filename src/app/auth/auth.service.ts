@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
 import { User } from './user.model';
 import { Router } from '@angular/router';
+import { environment } from 'src/env/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -19,7 +20,7 @@ export class AuthService {
     email: string
   ) {
     return this.http
-      .post<any>(`http://localhost:3000/auth/signup`, {
+      .post<any>(`${environment.BASE_URL}${environment.SIGNUP}`, {
         username,
         password,
         first,
@@ -37,7 +38,7 @@ export class AuthService {
 
   login(username: string, password: string) {
     return this.http
-      .post<any>(`http://localhost:3000/auth/login`, {
+      .post<any>(`${environment.BASE_URL}${environment.LOGIN}`, {
         username: username,
         password: password,
       })

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Blog } from './blog-list/blog.model';
+import { environment } from 'src/env/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class BlogService {
   // Get blog details by ID
   getBlogById(blogId: string): Observable<Blog> {
     console.log("Inside getBlogById()")
-    return this.http.get<Blog>(`http://localhost:3000/api/v1/posts/${blogId}`);
+    return this.http.get<Blog>(`${environment.BASE_URL}${environment.API_VERSION}posts/${blogId}`);
   }
 
   // Create a new blog

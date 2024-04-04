@@ -6,6 +6,7 @@ import { Subscription, map, take, tap } from 'rxjs';
 import { ActivatedRoute, Params, Route, Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { User } from 'src/app/auth/user.model';
+import { environment } from 'src/env/environment';
 
 @Component({
   selector: 'app-blog-detail',
@@ -35,7 +36,7 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
 
       // Make HTTP request inside the params subscription block
       this.http
-        .get<Blog>(`http://localhost:3000/api/v1/posts/${this.blog_id_url}`)
+        .get<Blog>(`${environment.BASE_URL}${environment.API_VERSION}posts/${this.blog_id_url}`)
         .pipe(
           take(1),
           map((blog: Blog) => {
