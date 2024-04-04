@@ -39,8 +39,11 @@ export class BlogListComponent implements OnInit {
                 last: blog.author.last,
               },
             };
+          }).filter((blog) => {
+            return blog.isPublished
           });
-        }),
+        })
+        ,
         tap((blogs: Blog[]) => {
           console.log(blogs);
           this.isLoading = false;
