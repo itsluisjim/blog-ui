@@ -1,1 +1,45 @@
-<p>blog-edit works!</p>
+<div class="back-btn-container">
+    <a routerLink="..">Back to Blog</a>
+</div>
+<div class="form-container">
+  <form #editForm="ngForm" (ngSubmit)="submitForm(editForm)" class="edit-form">
+    <input type="hidden" name="authorId" [ngModel]="blog.author._id" />
+
+    <div class="flex-column">
+      <label for="title">Title:</label>
+      <input type="text" name="title" [ngModel]="blog.title" minlength="5" maxlength="80" required/>
+      <div *ngIf="editForm.controls['title']?.touched && editForm.controls['title'].invalid" style="color: red; font-size: 12px;">
+        <div *ngIf="editForm.controls['title'].errors['required']">
+            *Title is required.
+        </div>
+        <div *ngIf="editForm.controls['title'].errors['minlength'] || editForm.controls['title'].errors['maxlength']">
+            *Title must be at between 5 and 80 characters long.
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-column">
+      <label for="content">Content:</label>
+      <textarea type="text" name="content" [ngModel]="blog.content" required></textarea>
+      <div *ngIf="editForm.controls['content']?.touched && editForm.controls['content'].invalid" style="color: red; font-size: 12px;">
+        <div *ngIf="editForm.controls['content'].errors['required']">
+            *Content is required.
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-column">
+      <label for="published">Do you want to publish it?</label>
+      <select name="published" id="published" [ngModel]="blog.isPublished" required>
+        <option value="true">Published</option>
+        <option value="false">Draft</option>
+      </select>
+      <div *ngIf="editForm.controls['publish']?.touched && editForm.controls['publish'].invalid" style="color: red; font-size: 12px;">
+        <div *ngIf="editForm.controls['publish'].errors['required']">
+            *Status is required.
+        </div>
+      </div>
+    </div>
+    <button type="submit">Update blog</button>
+  </form>
+</div>

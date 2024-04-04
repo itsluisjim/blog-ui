@@ -1,0 +1,73 @@
+.back-btn-container {
+    padding: 2rem 0 0 1.5rem;
+
+    a {
+        color: rgb(151, 60, 255);
+        font-size: 16px;
+        padding: 0.6rem 1rem;
+        border-radius: 10px;
+        border: 1px solid white;
+    }
+    a:hover {
+        border: 1px solid;
+    }
+    
+}
+.form-container {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    
+    
+    .edit-form {
+        display: flex;
+        flex-direction: column;
+        margin-top: 3rem;
+        gap: 15px;
+        width: 50%;
+
+        font-family: "Mulish", 'Times New Roman', Times, serif;
+
+        .flex-column {
+
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+
+            label {
+                font-size: 24px;
+            }
+
+            input, select, textarea {
+                height: 25px;
+                padding: 5px;
+                border-radius: 5px;
+                border: 1px solid lightgray;
+                font-size: 16px;
+            }
+
+            textarea {
+                height: 175px;
+                resize: none;
+            }
+        }
+
+        button {
+            border: none;
+            font-size: 20px;
+            border-radius: 5px;
+            background-color: rgb(151, 60, 255);
+            color: white;
+            padding: 10px;
+            margin-top: 1rem;
+        }
+
+        button:hover {
+            cursor: pointer;
+            background-color: rgb(139, 55, 235);
+        }
+
+    }
+}
