@@ -8,6 +8,7 @@ import { HeaderComponent } from "../header/header.component";
 import { SharedModule } from "../shared/shared.module";
 import { BlogDetailComponent } from "./blog-detail/blog-detail.component";
 import { BlogEditComponent } from "./blog-detail/blog-edit/blog-edit.component";
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
     declarations: [
@@ -20,7 +21,8 @@ import { BlogEditComponent } from "./blog-detail/blog-edit/blog-edit.component";
         RouterModule,
         BlogsRoutingModule,
         CommonModule,
-        SharedModule
+        SharedModule,
+        FormsModule
     ]
 })
 export class BlogModule{}
