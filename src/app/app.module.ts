@@ -6,10 +6,10 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
-import { SharedModule } from './shared/shared.module';
+import { BlogCreateComponent } from './blogs/blog-create/blog-create.component';
 import { HeaderComponent } from './header/header.component';
-import { BlogsComponent } from './blogs/blogs.component';
-import { BlogEditComponent } from './blogs/blog-detail/blog-edit/blog-edit.component';
+import { SharedModule } from './shared/shared.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -21,6 +21,7 @@ import { BlogEditComponent } from './blogs/blog-detail/blog-edit/blog-edit.compo
     FormsModule,
     HttpClientModule,
     SharedModule,
+    FontAwesomeModule,
   ],
   providers: [
     {
