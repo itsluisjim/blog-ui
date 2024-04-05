@@ -4,6 +4,7 @@ import { BlogDetailComponent } from './blogs/blog-detail/blog-detail.component';
 import { AuthGuard } from './auth/auth-guard';
 import { BlogEditComponent } from './blogs/blog-detail/blog-edit/blog-edit.component';
 import { AccessGuard } from './shared/guards/access-guard';
+import { BlogCreateComponent } from './blogs/blog-create/blog-create.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/feed', pathMatch: 'full' },
@@ -13,6 +14,10 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard],
     children: [
       {
+        path: 'new',
+        component: BlogCreateComponent
+      },
+      {
         path: ':id',
         component: BlogDetailComponent
       },
@@ -20,7 +25,7 @@ const appRoutes: Routes = [
         path:':id/edit',
         canActivate: [AccessGuard],
         component: BlogEditComponent
-      }
+      },
     ]
   },
   {
