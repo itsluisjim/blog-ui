@@ -4,7 +4,7 @@
       <div class="header-buttons" *ngIf="isAuthenticated">
         <a href="#" class="header-button">Home</a>
         <a href="#" class="header-button">Profile</a>
-        <button class="header-button header-logout-button" (click)="onLogout()">Logout</button>
+        <button class="header-button header-logout-button" (click)="onLogout()">Sign Out <fa-icon [icon]="faSignOut"></fa-icon></button>
       </div>
     </div>
 </nav>
