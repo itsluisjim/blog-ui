@@ -1,7 +1,10 @@
-<div class="back-btn-container">
+<div *ngIf="isLoading" style="width: 100vw; height: 50vh; display: grid; place-items: center;">
+  <app-loading-spinner></app-loading-spinner>
+</div>
+<div class="back-btn-container" *ngIf="!isLoading">
     <a routerLink="..">Back to Blog</a>
 </div>
-<div class="form-container">
+<div class="form-container" *ngIf="!isLoading">
   <form #editForm="ngForm" (ngSubmit)="submitForm(editForm)" class="edit-form">
     <input type="hidden" name="authorId" [ngModel]="blog.author._id" />
 
