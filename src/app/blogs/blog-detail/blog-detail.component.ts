@@ -7,6 +7,7 @@ import { ActivatedRoute, Params, Route, Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { User } from 'src/app/auth/user.model';
 import { environment } from 'src/env/environment';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-blog-detail',
@@ -77,5 +78,28 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.userSubscription.unsubscribe();
+  }
+
+  submitForm(deleteBlogForm: NgForm) {
+
+    const postId = deleteBlogForm.form.value.postId;
+    
+    if(!deleteBlogForm.valid){
+      return;
+    }
+
+    if(postId !== this.blog_id_url){
+      return;
+    }
+
+    this.http.delete(`${environment.BASE_URL}${environment.API_VERSION}posts/${postId}/delete`, {
+      body: {
+        postId: postId
+      }
+    })
+    .subscribe((response: any) => {
+      console.log(response);
+      this.router.navigate(['/feed']);
+    });
   }
 }
