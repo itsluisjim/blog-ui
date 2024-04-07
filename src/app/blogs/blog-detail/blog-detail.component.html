@@ -4,11 +4,11 @@
 <div class="blog-card" *ngIf="!isLoading">
     <div class="edit-section">
         <p class="date">{{ blog.createdAt | date:'MM/dd/yyyy h:mm a'}}</p>
-        <div *ngIf="user._id == blog.author._id">
+        <div *ngIf="user._id == blog.author._id" class="right-side-container">
             <a [routerLink]="'/blog/' + blog._id + '/edit'">Edit</a>
             <form method="post" #deleteBlogForm="ngForm" (ngSubmit)="submitForm(deleteBlogForm)">
                 <input type="hidden" [ngModel]="blog._id" name="postId">
-                <button type="submit">Delete</button>
+                <button type="submit" class="delete-btn">Delete</button>
             </form>
         </div>
     </div>
