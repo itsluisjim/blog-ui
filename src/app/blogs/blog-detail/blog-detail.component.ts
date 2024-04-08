@@ -18,6 +18,7 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
   blog: Blog;
   blog_id_url: string;
   isLoading = true;
+  showDeleteConfirmation = false;
 
   user: User;
   private userSubscription: Subscription;
@@ -79,6 +80,21 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.userSubscription.unsubscribe();
   }
+
+
+
+confirmDelete() {
+  this.showDeleteConfirmation = true;
+}
+
+deleteConfirmed(deleteBlogForm: NgForm) {
+  this.showDeleteConfirmation = false;
+  this.submitForm(deleteBlogForm);
+}
+
+deleteCancel() {
+  this.showDeleteConfirmation = false;
+}
 
   submitForm(deleteBlogForm: NgForm) {
 
