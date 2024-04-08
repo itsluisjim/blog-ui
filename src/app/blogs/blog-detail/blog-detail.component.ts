@@ -59,10 +59,12 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
           tap((blog: Blog) => {
             this.blog = blog;
 
-            console.log('Inside tap -Blog Detail');
-            console.log(blog);
-
-            this.isLoading = false;
+            if(blog.isPublished === false){
+              this.isLoading = false;
+              this.router.navigate(['/feed']);
+            } else { 
+              this.isLoading = false;
+            }
           })
         )
         .subscribe();
