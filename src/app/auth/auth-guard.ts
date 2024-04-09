@@ -18,8 +18,6 @@ export const AuthGuard: CanActivateFn = ():
   return authService.user.pipe(
     take(1),
     map((user) => {
-      console.log('In guard');
-      console.log(user)
 
       const isAuth = !!user; // same as user ? true : false;
       if (isAuth) {
