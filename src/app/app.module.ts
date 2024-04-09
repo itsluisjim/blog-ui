@@ -10,10 +10,11 @@ import { BlogCreateComponent } from './blogs/blog-create/blog-create.component';
 import { HeaderComponent } from './header/header.component';
 import { SharedModule } from './shared/shared.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
-    AppComponent, HeaderComponent
+    AppComponent, HeaderComponent, UserProfileComponent
   ],
   imports: [
     BrowserModule,
