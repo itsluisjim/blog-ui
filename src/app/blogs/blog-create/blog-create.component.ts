@@ -1,17 +1,16 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { User } from 'src/app/auth/user.model';
 import { Blog } from '../blog-list/blog.model';
-import { environment } from 'src/env/environment';
+import { BlogService } from '../blog.service';
 
 @Component({
   selector: 'app-blog-create',
   templateUrl: './blog-create.component.html',
-  styleUrls: ['./blog-create.component.scss']
+  styleUrls: ['./blog-create.component.scss'],
 })
 export class BlogCreateComponent implements OnInit, OnDestroy {
   blog: Blog;
@@ -22,10 +21,9 @@ export class BlogCreateComponent implements OnInit, OnDestroy {
   isAuthenticated = false;
 
   constructor(
-    private http: HttpClient,
-    private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private blogService: BlogService
   ) {}
 
   ngOnInit(): void {
@@ -43,21 +41,18 @@ export class BlogCreateComponent implements OnInit, OnDestroy {
     this.userSubscription.unsubscribe();
   }
 
-  submitForm(createBlogForm: NgForm){
-    
-    console.log(createBlogForm);
-
-    if(!createBlogForm.valid){
+  submitForm(createBlogForm: NgForm) {
+    if (!createBlogForm.valid) {
       return;
     }
 
-    this.http.post(`${environment.BASE_URL}${environment.API_VERSION}posts/create`, {
-      authorId: createBlogForm.form.value.authorId,
-      title: createBlogForm.form.value.title,
-      content: createBlogForm.form.value.content,
-      published: createBlogForm.form.value.published
-    }).subscribe((response: any) => {
-      console.log(response);
-    });
+    const { authorId, title, content, published } = createBlogForm.form.value;
+
+    this.blogService
+      .createBlog(authorId, title, content, published)
+      .subscribe((response: any) => {
+        const blogId = response.blog._id;
+        this.router.navigate([`/blog/${blogId}`]);
+      });
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Blog } from './blog.model';
 import { HttpClient } from '@angular/common/http';
 import { map, tap } from 'rxjs';
+import { BlogService } from '../blog.service';
 
 @Component({
   selector: 'app-blog-list',
@@ -11,24 +12,20 @@ import { map, tap } from 'rxjs';
 export class BlogListComponent implements OnInit {
   isLoading = true;
 
-  constructor(public http: HttpClient) {}
+  constructor(public http: HttpClient, private blogService: BlogService) {}
 
   public list_of_blogs: Blog[] = [];
 
   ngOnInit() {
-    console.log('inside on init method');
-    this.http
-      .get<Blog[]>('http://localhost:3000/api/v1/posts')
+
+    this.blogService.getAllBlogs()
       .pipe(
         map((blogs: Blog[]) => {
           if (blogs == null) {
-            console.log('blogs empty!');
             return [];
           }
 
           return blogs.map((blog: Blog) => {
-
-            console.log(blog);
 
             return {
               ...blog,
@@ -45,7 +42,6 @@ export class BlogListComponent implements OnInit {
         })
         ,
         tap((blogs: Blog[]) => {
-          console.log(blogs);
           this.isLoading = false;
           this.list_of_blogs = blogs;
         })

@@ -1,13 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Blog } from '../blog-list/blog.model';
-import { Author } from 'src/app/shared/author.model';
 import { HttpClient } from '@angular/common/http';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription, map, take, tap } from 'rxjs';
-import { ActivatedRoute, Params, Route, Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { User } from 'src/app/auth/user.model';
 import { environment } from 'src/env/environment';
-import { NgForm } from '@angular/forms';
+import { Blog } from '../blog-list/blog.model';
+import { BlogService, ResponseData } from '../blog.service';
 
 @Component({
   selector: 'app-blog-detail',
@@ -16,7 +16,7 @@ import { NgForm } from '@angular/forms';
 })
 export class BlogDetailComponent implements OnInit, OnDestroy {
   blog: Blog;
-  blog_id_url: string;
+  url_blog_id: string;
   isLoading = true;
   showDeleteConfirmation = false;
 
@@ -28,17 +28,16 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
     private http: HttpClient,
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private blogService: BlogService
   ) {}
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
-      this.blog_id_url = params['id'];
-      console.log('inside on init method');
+      this.url_blog_id = params['id'];
 
-      // Make HTTP request inside the params subscription block
-      this.http
-        .get<Blog>(`${environment.BASE_URL}${environment.API_VERSION}posts/${this.blog_id_url}`)
+      this.blogService
+        .getBlogById(this.url_blog_id)
         .pipe(
           take(1),
           map((blog: Blog) => {
@@ -59,10 +58,10 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
           tap((blog: Blog) => {
             this.blog = blog;
 
-            if(blog.isPublished === false){
+            if (blog.isPublished === false) {
               this.isLoading = false;
               this.router.navigate(['/feed']);
-            } else { 
+            } else {
               this.isLoading = false;
             }
           })
@@ -83,41 +82,34 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
     this.userSubscription.unsubscribe();
   }
 
+  confirmDelete() {
+    this.showDeleteConfirmation = true;
+  }
 
+  deleteConfirmed(deleteBlogForm: NgForm) {
+    this.showDeleteConfirmation = false;
+    this.submitForm(deleteBlogForm);
+  }
 
-confirmDelete() {
-  this.showDeleteConfirmation = true;
-}
-
-deleteConfirmed(deleteBlogForm: NgForm) {
-  this.showDeleteConfirmation = false;
-  this.submitForm(deleteBlogForm);
-}
-
-deleteCancel() {
-  this.showDeleteConfirmation = false;
-}
+  deleteCancel() {
+    this.showDeleteConfirmation = false;
+  }
 
   submitForm(deleteBlogForm: NgForm) {
+    
+    if (!deleteBlogForm.valid) {
+      return;
+    }
 
     const postId = deleteBlogForm.form.value.postId;
-    
-    if(!deleteBlogForm.valid){
+
+    if (postId !== this.url_blog_id) {
       return;
     }
 
-    if(postId !== this.blog_id_url){
-      return;
-    }
-
-    this.http.delete(`${environment.BASE_URL}${environment.API_VERSION}posts/${postId}/delete`, {
-      body: {
-        postId: postId
-      }
-    })
-    .subscribe((response: any) => {
-      console.log(response);
-      this.router.navigate(['/feed']);
-    });
+    this.blogService.deleteBlog(postId)
+      .subscribe((data: ResponseData) => {
+        this.router.navigate(['/feed']);
+      });
   }
 }

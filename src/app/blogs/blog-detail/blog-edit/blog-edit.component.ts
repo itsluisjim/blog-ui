@@ -1,43 +1,40 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { AuthService } from 'src/app/auth/auth.service';
-import { Blog } from '../../blog-list/blog.model';
-import { User } from 'src/app/auth/user.model';
 import { Subscription, map, take, tap } from 'rxjs';
-import { environment } from 'src/env/environment';
-
+import { AuthService } from 'src/app/auth/auth.service';
+import { User } from 'src/app/auth/user.model';
+import { Blog } from '../../blog-list/blog.model';
+import { BlogService, ResponseData } from '../../blog.service';
 
 @Component({
   selector: 'app-blog-edit',
   templateUrl: './blog-edit.component.html',
-  styleUrls: ['./blog-edit.component.scss']
+  styleUrls: ['./blog-edit.component.scss'],
 })
-export class BlogEditComponent implements OnInit {
-
+export class BlogEditComponent implements OnInit, OnDestroy {
   blog: Blog;
-  blog_id_url: string;
+  url_blog_id: string;
   isLoading = true;
 
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private blogService: BlogService
   ) {}
 
   user: User;
   private userSubscription: Subscription;
   isAuthenticated = false;
 
-
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
-      this.blog_id_url = params['id'];
-      // Make HTTP request inside the params subscription block
-      this.http
-        .get<Blog>(`${environment.BASE_URL}${environment.API_VERSION}posts/${this.blog_id_url}`)
+      this.url_blog_id = params['id'];
+      this.blogService
+        .getBlogById(this.url_blog_id)
         .pipe(
           take(1),
           map((blog: Blog) => {
@@ -57,10 +54,6 @@ export class BlogEditComponent implements OnInit {
           }),
           tap((blog: Blog) => {
             this.blog = blog;
-
-            console.log('Inside tap -Blog Detail');
-            console.log(blog);
-
             this.isLoading = false;
           })
         )
@@ -80,28 +73,21 @@ export class BlogEditComponent implements OnInit {
     this.userSubscription.unsubscribe();
   }
 
-  submitForm(editForm: NgForm){
-
-    console.log(editForm)
-
-    if(!editForm.valid){
+  submitForm(editForm: NgForm) {
+    if (!editForm.valid) {
       return;
     }
 
-    if(this.user._id !== this.blog.author._id){
+    if (this.user._id !== this.blog.author._id) {
       this.router.navigate(['/feed']);
     }
 
-    this.http.put(`${environment.BASE_URL}${environment.API_VERSION}posts/${this.blog_id_url}/update`, {
-      authorId: editForm.form.value.authorId,
-      title: editForm.form.value.title,
-      content: editForm.form.value.content,
-      published: editForm.form.value.published
-    }).subscribe((response: any) => {
-      console.log(response);
-      this.router.navigate(['../'], {relativeTo: this.route});
-    });
+    const { authorId, title, content, published } = editForm.form.value;
 
+    this.blogService
+      .updateBlog(this.url_blog_id, authorId, title, content, published)
+      .subscribe((data: ResponseData) => {
+        this.router.navigate(['../'], { relativeTo: this.route });
+      });
   }
-
 }
