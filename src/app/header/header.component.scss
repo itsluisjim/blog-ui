@@ -1,17 +1,18 @@
-$primary-color: rgb(151, 60, 255);
+$primary-color: rgb(141, 55, 240);
+$secondary-color: rgb(151, 60, 255);
+$primary-white: #f8f9fa;
 
 .header-nav {
-  background-color: #f8f9fa;
+  background-color: $primary-color;
+
   padding: 10px 20px;
   display: flex;
   align-items: center;
   height: 70px;
-  border-bottom: 1px solid #eee;
 
   a {
     text-decoration: none;
-    color: #333;
-
+    color: $primary-white;
     &:hover {
       color: $primary-color;
     }
@@ -27,7 +28,7 @@ $primary-color: rgb(151, 60, 255);
     .header-title {
       font-size: 1.75rem;
       font-weight: bold;
-      font-family: "Sora", 'Times New Roman', Times, serif;
+      font-family: "Sora", "Times New Roman", Times, serif;
     }
 
     .header-buttons {
@@ -36,26 +37,25 @@ $primary-color: rgb(151, 60, 255);
       flex-direction: row;
       gap: 10px;
       list-style: none;
-      font-family: "Mulish", 'Times New Roman', Times, serif;
+      font-family: "Mulish", "Times New Roman", Times, serif;
       cursor: pointer;
 
-      a, button {
+      a,
+      button {
         padding: 1rem 1.2rem;
-        
       }
       button {
         border: none;
         font-size: 15px;
-        font-family: "Mulish", 'Times New Roman', Times, serif;
-        background-color: #f8f9fa;
-
+        font-family: "Mulish", "Times New Roman", Times, serif;
+        background-color: inherit;
+        color: $primary-white;
       }
-      a:hover, button:hover {
+      a:hover,
+      button:hover {
         background-color: rgb(240, 240, 240);
         color: $primary-color;
-
       }
     }
-
   }
 }

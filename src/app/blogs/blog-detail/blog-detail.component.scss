@@ -1,134 +1,133 @@
+$primary-color: rgb(141, 55, 240);
+$secondary-color: rgb(151, 60, 255);
+$primary-white: #f8f9fa;
+
 .modal {
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
 
-    display: flex;
-    justify-content: center; 
-    align-items: center;   
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    background-color: rgba(203, 203, 203, 0.95);
+  background-color: rgba(203, 203, 203, 0.95);
 
+  .modal-content {
+    background-color: white;
+    border: 2px solid $primary-color;
+    border-radius: 10px;
+    padding: 3rem;
 
-    .modal-content {
-        background-color: white;
-        border: 2px solid rgb(151, 60, 255);
-        border-radius: 10px;
-        padding: 3rem;
+    .modal-body {
+      margin-bottom: 2rem;
 
-        .modal-body {
-            margin-bottom: 2rem;
-
-            h3 {
-                font-family: "Sora", 'Times New Roman', Times, serif;
-            }
-        }
-
-        .modal-footer {
-            display: flex;
-            justify-content: space-between;
-
-            .cancel-btn {
-                text-decoration: underline;
-                background-color: white;
-                color: rgb(151, 60, 255);;
-                border: 1px solid white;
-                font-size: 16px;
-                padding: 0.6rem 1rem;
-                border-radius: 10px;
-            }
-            
-            .cancel-btn:hover {
-                
-                cursor: pointer;
-            }
-
-            .delete-btn {
-                text-decoration: underline;
-                background-color: white;
-                color: rgb(242, 60, 60);
-                border: 1px solid white;
-                font-size: 16px;
-                padding: 0.6rem 1rem;
-                border-radius: 10px;
-            }
-            
-            .delete-btn:hover {
-                border-color: rgb(211, 51, 51);
-                cursor: pointer;
-            }
-        }
+      h3 {
+        font-family: "Sora", "Times New Roman", Times, serif;
+      }
     }
+
+    .modal-footer {
+      display: flex;
+      justify-content: space-between;
+
+      .cancel-btn {
+        text-decoration: underline;
+        background-color: white;
+        color: $primary-color;
+        border: 1px solid white;
+        font-size: 16px;
+        padding: 0.6rem 1rem;
+        border-radius: 10px;
+      }
+
+      .cancel-btn:hover {
+        cursor: pointer;
+      }
+
+      .delete-btn {
+        text-decoration: underline;
+        background-color: white;
+        color: rgb(242, 60, 60);
+        border: 1px solid white;
+        font-size: 16px;
+        padding: 0.6rem 1rem;
+        border-radius: 10px;
+      }
+
+      .delete-btn:hover {
+        border-color: rgb(211, 51, 51);
+        cursor: pointer;
+      }
+    }
+  }
 }
 .blog-card {
-    margin: 1rem 15rem;
-    padding: 3rem 7rem;
-    border: 1px solid black;
-    font-family: "Mulish", 'Times New Roman', Times, serif;
+  margin: 1rem 15rem;
+  padding: 3rem 7rem;
+  border: 1px solid black;
+  font-family: "Mulish", "Times New Roman", Times, serif;
 
-    .edit-section {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 3rem;
+  .edit-section {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
 
-        .date {
-            color: rgb(183, 183, 183);
-        }
-
-        
-        .right-side-container {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            gap: 5px;
-
-            a {
-                color: rgb(151, 60, 255);
-                font-size: 16px;
-                padding: 0.6rem 1rem;
-                border-radius: 10px;
-                border: 1px solid white;
-            }
-            a:hover {
-                border: 1px solid;
-            }
-            .delete-btn {
-                background-color: white;
-                color: rgb(242, 60, 60);
-                border: 1px solid white;
-                font-size: 16px;
-                padding: 0.6rem 1rem;
-                border-radius: 10px;
-            }
-            
-            .delete-btn:hover {
-                border-color: rgb(211, 51, 51);
-                cursor: pointer;
-            }
-        }
-    }
-    
-
-    
-    .title {
-        font-size: 40px;
-        margin-bottom: 1rem;
-        font-family: 'Sora', 'Times New Roman', Times, serif;
+    .date {
+      color: rgb(183, 183, 183);
     }
 
-    .author {
-        margin-bottom: 2rem;
-    }
+    .right-side-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 5px;
 
-    div > img {
-        width: 100%;
-        margin-bottom: 1.5rem;
-    }
+      a {
+        color: $primary-color;
+        font-size: 16px;
+        padding: 0.6rem 1rem;
+        border-radius: 10px;
+        border: 1px solid white;
+      }
+      a:hover {
+        border: 1px solid;
+      }
+      .delete-btn {
+        background-color: white;
+        color: rgb(242, 60, 60);
+        border: 1px solid white;
+        font-size: 16px;
+        padding: 0.6rem 1rem;
+        border-radius: 10px;
+      }
 
-    .text {
-        font-size: 20px;
+      .delete-btn:hover {
+        border-color: rgb(211, 51, 51);
+        cursor: pointer;
+      }
     }
+  }
+
+  .title {
+    font-size: 40px;
+    margin-bottom: 1rem;
+    font-family: "Sora", "Times New Roman", Times, serif;
+  }
+
+  .author {
+    margin-bottom: 2rem;
+  }
+
+  div > img {
+    width: 100%;
+    margin-bottom: 1.5rem;
+  }
+
+  .text {
+    font-size: 20px;
+  }
 }
