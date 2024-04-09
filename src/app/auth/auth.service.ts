@@ -5,6 +5,21 @@ import { User } from './user.model';
 import { Router } from '@angular/router';
 import { environment } from 'src/env/environment';
 
+export interface AuthResponseData {
+  message: string;
+  data: {
+    user: {
+      username: string;
+      email: string;
+      first: string;
+      last: string;
+      admin: boolean;
+      _id: string;
+    };
+    token: string;
+  };
+}
+
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   user = new BehaviorSubject<User>(null);
@@ -20,7 +35,7 @@ export class AuthService {
     email: string
   ) {
     return this.http
-      .post<any>(`${environment.BASE_URL}${environment.SIGNUP}`, {
+      .post<AuthResponseData>(`${environment.BASE_URL}/${environment.SIGNUP}`, {
         username,
         password,
         first,
@@ -29,7 +44,7 @@ export class AuthService {
       })
       .pipe(
         catchError(this.errorHandler),
-        tap((response) => {
+        tap((response: AuthResponseData) => {
           // tap into response data to create a user
           this.handleAuthentication(response.data.user, response.data.token);
         })
@@ -38,13 +53,13 @@ export class AuthService {
 
   login(username: string, password: string) {
     return this.http
-      .post<any>(`${environment.BASE_URL}${environment.LOGIN}`, {
+      .post<AuthResponseData>(`${environment.BASE_URL}/${environment.LOGIN}`, {
         username: username,
         password: password,
       })
       .pipe(
         catchError(this.errorHandler),
-        tap((response) => {
+        tap((response: AuthResponseData) => {
           // tap into response data to create a user
           this.handleAuthentication(response.data.user, response.data.token);
         })
@@ -75,7 +90,6 @@ export class AuthService {
 
   logout() {
     this.user.next(null);
-    console.log('Inside Logout()');
     this.router.navigate(['./auth']);
     localStorage.removeItem('userData');
 
