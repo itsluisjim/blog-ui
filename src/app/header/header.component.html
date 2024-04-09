@@ -1,9 +1,9 @@
 <nav class="header-nav">
     <div class="header-container">
-      <a href="#" class="header-title">BlogAway</a>
+      <a routerLink="/feed" class="header-title">BlogAway</a>
       <div class="header-buttons" *ngIf="isAuthenticated">
-        <a href="#" class="header-button">Home</a>
-        <a href="#" class="header-button">Profile</a>
+        <a routerLink="/feed" class="header-button">Home</a>
+        <a routerLink="/profile" class="header-button">Profile</a>
         <button class="header-button header-logout-button" (click)="onLogout()">Sign Out <fa-icon [icon]="faSignOut"></fa-icon></button>
       </div>
     </div>

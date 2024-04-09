@@ -7,7 +7,6 @@ $primary-color: rgb(151, 60, 255);
   align-items: center;
   height: 70px;
   border-bottom: 1px solid #eee;
-  width: 100%;
 
   a {
     text-decoration: none;
@@ -21,14 +20,13 @@ $primary-color: rgb(151, 60, 255);
   .header-container {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 100%;
-    max-width: 1200px;
     margin: 0 auto;
 
     .header-title {
       font-size: 1.75rem;
       font-weight: bold;
-      margin-right: 10px;
       font-family: "Sora", 'Times New Roman', Times, serif;
     }
 
@@ -54,24 +52,10 @@ $primary-color: rgb(151, 60, 255);
       }
       a:hover, button:hover {
         background-color: rgb(240, 240, 240);
-        color: rgb(0, 179, 255);
+        color: $primary-color;
 
       }
     }
 
-    @media (max-width: 768px) {
-      // .header-title {
-      //   margin: 0;
-      // }
-
-      // .header-buttons {
-      //   flex-direction: column;
-      //   background-color: #fff;
-      //   padding: 10px;
-      //   border-radius: 5px;
-      //   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-
-      // }
-    }
   }
 }
