@@ -14,8 +14,8 @@ import { User } from 'src/app/auth/user.model';
 import { Blog } from 'src/app/blogs/blog-list/blog.model';
 
 /**
- * Protects paths from being accessible if authorization
- * is not established. Currenly only applied to /feed
+ * Protects certain paths from being accessible to a user even
+ * if they are authenticated. Currenly only applied to /edit
  */
 
 export const AccessGuard: CanActivateFn = (
