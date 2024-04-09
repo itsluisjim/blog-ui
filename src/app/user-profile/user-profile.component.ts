@@ -14,6 +14,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   userSubscription: Subscription;
   isAuthenticated =  false;
 
+  isLoading = true;
 
   constructor(private authService: AuthService){}
   
@@ -24,8 +25,9 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       this.isAuthenticated = !!user;
 
       if(this.isAuthenticated) {
-        this.user = user
+        this.user = user;
       }
+      this.isLoading = false;
     })
   }
   
