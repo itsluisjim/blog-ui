@@ -1,6 +1,7 @@
 $primary-color: rgb(141, 55, 240);
 $secondary-color: rgb(151, 60, 255);
 $primary-white: #f8f9fa;
+$light-gray: rgb(183, 183, 183);
 
 .modal {
   position: fixed;
@@ -77,7 +78,7 @@ $primary-white: #f8f9fa;
     margin-bottom: 3rem;
 
     .date {
-      color: rgb(183, 183, 183);
+      color: $light-gray;
     }
 
     .right-side-container {
@@ -129,5 +130,22 @@ $primary-white: #f8f9fa;
 
   .text {
     font-size: 20px;
+  }
+
+  .comments-container {
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    
+    .comment-card {
+      padding: 0 1rem;
+      border: 1px solid black;
+
+      .date {
+        font-size: 14px;
+        color: $light-gray;
+      }
+    }
   }
 }
