@@ -8,6 +8,8 @@ import { User } from 'src/app/auth/user.model';
 import { environment } from 'src/env/environment';
 import { Blog } from '../blog-list/blog.model';
 import { BlogService, ResponseData } from '../blog.service';
+import { CommentResponseData, CommentService } from '../comment.service';
+import { Comment } from 'src/app/shared/comment.model';
 
 @Component({
   selector: 'app-blog-detail',
@@ -19,6 +21,7 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
   url_blog_id: string;
   isLoading = true;
   showDeleteConfirmation = false;
+  comments: Comment[];
 
   user: User;
   private userSubscription: Subscription;
@@ -29,7 +32,8 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
-    private blogService: BlogService
+    private blogService: BlogService,
+    private commentService: CommentService
   ) {}
 
   ngOnInit() {
@@ -57,6 +61,7 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
           }),
           tap((blog: Blog) => {
             this.blog = blog;
+            this.comments = blog.comments;
 
             if (blog.isPublished === false) {
               this.isLoading = false;
@@ -96,7 +101,6 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
   }
 
   submitForm(deleteBlogForm: NgForm) {
-    
     if (!deleteBlogForm.valid) {
       return;
     }
@@ -107,9 +111,35 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.blogService.deleteBlog(postId)
-      .subscribe((data: ResponseData) => {
-        this.router.navigate(['/feed']);
-      });
+    this.blogService.deleteBlog(postId).subscribe((data: ResponseData) => {
+      this.router.navigate(['/feed']);
+    });
+  }
+
+  submitComment(createCommentForm: NgForm) {
+    if (!createCommentForm.valid) {
+      return;
+    }
+
+    const { authorId, postId, comment } = createCommentForm.form.value;
+
+    this.commentService
+      .createComment(authorId, postId, comment)
+      .pipe(
+        tap((response: CommentResponseData) => {
+          this.comments.push(response.comment);
+        })
+      )
+      .subscribe();
+      // console.log(this.user)
+      
+      createCommentForm.reset();
+      console.log(this.user)
+  }
+
+  deleteComment(commentId: string, postId: string){
+    this.commentService.deleteCommentById(commentId, postId).subscribe();
+
+    this.comments = this.comments.filter((comment: Comment) => comment._id !== commentId);
   }
 }
