@@ -1,15 +1,14 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription, map, take, tap } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { User } from 'src/app/auth/user.model';
-import { environment } from 'src/env/environment';
 import { Blog } from '../blog-list/blog.model';
 import { BlogService, ResponseData } from '../blog.service';
 import { CommentResponseData, CommentService } from '../comment.service';
 import { Comment } from 'src/app/shared/comment.model';
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
 @Component({
   selector: 'app-blog-detail',
@@ -23,12 +22,13 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
   showDeleteConfirmation = false;
   comments: Comment[];
 
+  faTrash = faTrash;
+
   user: User;
   private userSubscription: Subscription;
   isAuthenticated = false;
 
   constructor(
-    private http: HttpClient,
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
@@ -87,20 +87,19 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
     this.userSubscription.unsubscribe();
   }
 
-  confirmDelete() {
+  openModal() {
     this.showDeleteConfirmation = true;
   }
-
-  deleteConfirmed(deleteBlogForm: NgForm) {
-    this.showDeleteConfirmation = false;
-    this.submitForm(deleteBlogForm);
-  }
-
-  deleteCancel() {
+  closeModal() {
     this.showDeleteConfirmation = false;
   }
 
-  submitForm(deleteBlogForm: NgForm) {
+  deleteBlogConfirmed(deleteBlogForm: NgForm) {
+    this.showDeleteConfirmation = false;
+    this.deleteBlog(deleteBlogForm);
+  }
+
+  deleteBlog(deleteBlogForm: NgForm) {
     if (!deleteBlogForm.valid) {
       return;
     }
@@ -111,12 +110,12 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.blogService.deleteBlog(postId).subscribe((data: ResponseData) => {
+    this.blogService.deleteBlogById(postId).subscribe((data: ResponseData) => {
       this.router.navigate(['/feed']);
     });
   }
 
-  submitComment(createCommentForm: NgForm) {
+  createComment(createCommentForm: NgForm) {
     if (!createCommentForm.valid) {
       return;
     }
@@ -127,14 +126,17 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
       .createComment(authorId, postId, comment)
       .pipe(
         tap((response: CommentResponseData) => {
-          this.comments.push(response.comment);
+          response.comment.author = {
+            _id: response.comment.author._id,
+            first: this.user.first,
+            last: this.user.last,
+            username: this.user.username
+          }
+          this.comments.unshift(response.comment);
         })
       )
       .subscribe();
-      // console.log(this.user)
-      
       createCommentForm.reset();
-      console.log(this.user)
   }
 
   deleteComment(commentId: string, postId: string){
