@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { User } from 'src/app/auth/user.model';
 import { Blog } from '../blog-list/blog.model';
-import { BlogService } from '../blog.service';
+import { BlogService, ResponseData } from '../blog.service';
 
 @Component({
   selector: 'app-blog-create',
@@ -50,8 +50,8 @@ export class BlogCreateComponent implements OnInit, OnDestroy {
 
     this.blogService
       .createBlog(authorId, title, content, published)
-      .subscribe((response: any) => {
-        const blogId = response.blog._id;
+      .subscribe((response: ResponseData) => {
+        const blogId = response.post._id;
         this.router.navigate([`/blog/${blogId}`]);
       });
   }
