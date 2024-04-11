@@ -9,6 +9,7 @@ import { BlogDetailComponent } from "./blog-detail/blog-detail.component";
 import { BlogEditComponent } from "./blog-detail/blog-edit/blog-edit.component";
 import { FormsModule } from "@angular/forms";
 import { BlogCreateComponent } from "./blog-create/blog-create.component";
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 
 @NgModule({
     declarations: [
@@ -23,7 +24,8 @@ import { BlogCreateComponent } from "./blog-create/blog-create.component";
         BlogsRoutingModule,
         CommonModule,
         SharedModule,
-        FormsModule
+        FormsModule,
+        FontAwesomeModule,
     ]
 })
 export class BlogModule{}
