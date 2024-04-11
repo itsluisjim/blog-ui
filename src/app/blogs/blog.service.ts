@@ -49,7 +49,7 @@ export class BlogService {
   }
 
   // Delete a blog
-  deleteBlog(postId: string): Observable<any> {
+  deleteBlogById(postId: string): Observable<any> {
     return this.http
     .delete(
       `${this.url}/posts/${postId}/delete`,
