@@ -63,7 +63,7 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
             this.blog = blog;
             this.comments = blog.comments;
 
-            if (blog.isPublished === false) {
+            if (blog.isPublished === false && this.user._id !== blog.author._id) {
               this.isLoading = false;
               this.router.navigate(['/feed']);
             } else {
