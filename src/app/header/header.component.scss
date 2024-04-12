@@ -2,6 +2,11 @@ $primary-color: rgb(141, 55, 240);
 $secondary-color: rgb(151, 60, 255);
 $primary-white: #f8f9fa;
 
+.active {
+  background-color: rgb(240, 240, 240);
+  color: $primary-color !important;
+}
+
 .header-nav {
   background-color: $primary-color;
 
