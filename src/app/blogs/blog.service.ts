@@ -23,6 +23,10 @@ export class BlogService {
     return this.http.get<Blog[]>(`${this.url}/posts/`);
   };
 
+  getAllBlogsByAuthor(authorId: string): Observable<Blog[]> {
+    return this.http.get<Blog[]>(`${this.url}/posts/${authorId}/my-blogs`);
+  }
+
   // Get blog details by ID
   getBlogById(blogId: string): Observable<Blog> {
     return this.http.get<Blog>(`${this.url}/posts/${blogId}`);
