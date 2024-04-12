@@ -24,7 +24,7 @@ export class BlogService {
   };
 
   getAllBlogsByAuthor(authorId: string): Observable<Blog[]> {
-    return this.http.get<Blog[]>(`${this.url}/posts/${authorId}/my-blogs`);
+    return this.http.get<Blog[]>(`${this.url}/posts/${authorId}/my-posts`);
   }
 
   // Get blog details by ID
