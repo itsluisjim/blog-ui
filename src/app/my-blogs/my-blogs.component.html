@@ -1,0 +1,15 @@
+<div *ngIf="isLoading" style="width: 100vw; height: 50vh; display: grid; place-items: center;">
+    <app-loading-spinner></app-loading-spinner>
+</div>
+<div class="container">
+    <div *ngFor="let blog of list_of_blogs" class="blog-container">
+      <div class="blog-content">
+        <h2>{{ blog.title }}</h2>
+        <p>Created: {{ blog.createdAt | date:'MM/dd/yyyy h:mm a' }}</p>
+      </div>
+      <div class="blog-info">
+        <span class="blog-status" [ngClass]="blog.isPublished ? 'published' : 'draft'"  >{{ blog.isPublished ? 'Published' : 'Draft' }}</span>
+        <a [routerLink]="'/blog/' + blog._id" class="view-link">View</a>
+      </div>
+    </div>
+  </div>
