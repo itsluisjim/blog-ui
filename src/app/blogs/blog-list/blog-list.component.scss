@@ -32,6 +32,37 @@ $primary-white: #f8f9fa;
   flex-wrap: wrap;
   gap: 2rem;
 
+  .no-blogs-available-container {
+
+    width: 100vw;
+    overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 65px;
+    padding-top: 50px;
+
+    .no-blogs-message {
+
+      border: 5px solid $primary-color;
+      background-color: #f5efff;
+      border-radius: 20px;
+      padding: 15px 25px;
+
+      h1, h2 {
+        font-family: "Mulish", 'Times New Roman', Times, serif;
+      }
+  
+      h2 {
+        color: rgb(145, 144, 144);
+      }
+    }
+
+    img {
+      width: 300px;
+    }
+  }
+
   .blog-card {
     border: 1px solid black;
     display: flex;

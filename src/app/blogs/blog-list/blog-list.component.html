@@ -1,21 +1,30 @@
 <div class="create-blog-container">
     <a [routerLink]="'/blog/new'">Create Blog</a>
 </div>
-<div class="posts-container" >
+<div class="posts-container">
     <div *ngIf="isLoading" style="width: 100vw; height: 50vh; display: grid; place-items: center;">
         <app-loading-spinner></app-loading-spinner>
     </div>
-    <div *ngFor="let blog of list_of_blogs;" class="blog-card">
-        <div class="blog-img-container">
-            <img src="../../../assets/images/pexels-darlene-alderson-4385547.jpg" alt="Image here">
+    <div *ngIf="!isLoading" >
+        <div *ngIf="list_of_blogs.length === 0? true: false" class="no-blogs-available-container">
+            <div class="no-blogs-message">
+                <h1>Oops! 😬 Looks like there are no blogs :/</h1>
+                <h2>Be the first one to publish! 👨🏻‍💻</h2>
+            </div>
+            <img src="../../../assets/images/Logo-2.svg" alt="simple logo">
         </div>
-        <div class="blog-content-container">
-            <div class="time-created">{{ blog.createdAt | date:'MM/dd/yyyy h:mm a'}}</div>
-            <h2>{{blog.title}}</h2>
-            
-            <div class="author-and-btn">
-                <p>{{blog.author.first}} {{blog.author.last}}</p>
-                <a [routerLink]="'/blog/' + blog._id">Read</a>
+        <div *ngFor="let blog of list_of_blogs;" class="blog-card">
+            <div class="blog-img-container">
+                <img src="../../../assets/images/pexels-darlene-alderson-4385547.jpg" alt="Image here">
+            </div>
+            <div class="blog-content-container">
+                <div class="time-created">{{ blog.createdAt | date:'MM/dd/yyyy h:mm a'}}</div>
+                <h2>{{blog.title}}</h2>
+                
+                <div class="author-and-btn">
+                    <p>{{blog.author.first}} {{blog.author.last}}</p>
+                    <a [routerLink]="'/blog/' + blog._id">Read</a>
+                </div>
             </div>
         </div>
     </div>
