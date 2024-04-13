@@ -136,7 +136,7 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe();
-      createCommentForm.reset();
+      createCommentForm.controls['comment'].reset();
   }
 
   deleteComment(commentId: string, postId: string){

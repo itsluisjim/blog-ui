@@ -31,8 +31,8 @@
     <p class="text">{{blog.content}}</p>
     <h2>Comments</h2>
     <form #createCommentForm="ngForm" (ngSubmit)="createComment(createCommentForm)" class="submit-comment-form">
-        <input type="hidden" name="postId" [ngModel]="blog._id">
-        <input type="hidden" name="authorId" [ngModel]="user._id">
+        <input type="hidden" name="postId" [(ngModel)]="blog._id">
+        <input type="hidden" name="authorId" [(ngModel)]="user._id">
         <div class="input-container">
             <input type="text" name="comment" id="comment-input" ngModel placeholder="Share your thoughts..." minlength="1" maxlength="200">
             <button type="submit">Send</button>
