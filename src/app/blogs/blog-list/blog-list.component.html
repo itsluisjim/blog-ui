@@ -6,13 +6,13 @@
         <app-loading-spinner></app-loading-spinner>
     </div>
     <div *ngIf="!isLoading" >
-        <div *ngIf="list_of_blogs.length === 0? true: false" class="no-blogs-available-container">
-            <div class="no-blogs-message">
-                <h1>Oops! 😬 Looks like there are no blogs :/</h1>
-                <h2>Be the first one to publish! 👨🏻‍💻</h2>
-            </div>
-            <img src="../../../assets/images/Logo-2.svg" alt="simple logo">
-        </div>
+        <app-no-blogs 
+            class="no-blogs-available-container"
+            *ngIf="list_of_blogs.length === 0? true: false"
+            message1="Oops! 😬 Looks like there are no blogs :/"
+            message2="Be the first one to publish! 👨🏻‍💻"
+            >
+        </app-no-blogs>
         <div *ngFor="let blog of list_of_blogs;" class="blog-card">
             <div class="blog-img-container">
                 <img src="../../../assets/images/pexels-darlene-alderson-4385547.jpg" alt="Image here">

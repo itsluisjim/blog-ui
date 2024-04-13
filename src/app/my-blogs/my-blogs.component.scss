@@ -7,6 +7,16 @@ $primary-color: rgb(141, 55, 240);
     padding: 2rem;
     font-family: "Mulish", 'Times New Roman', Times, serif;
 
+    .no-blogs-available-container {
+      width: 100vw;
+      overflow-x: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 65px;
+      padding-top: 100px;
+    }
+
     .blog-container {
       display: flex;
       justify-content: space-between;

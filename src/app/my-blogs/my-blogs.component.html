@@ -1,7 +1,13 @@
 <div *ngIf="isLoading" style="width: 100vw; height: 50vh; display: grid; place-items: center;">
     <app-loading-spinner></app-loading-spinner>
 </div>
-<div class="container">
+<div class="container" *ngIf="!isLoading">
+    <app-no-blogs
+      *ngIf="list_of_blogs.length === 0? true: false"
+      class="no-blogs-available-container"
+      message1="Oops! 😬 Looks like you have no blogs yet :/"
+      message2="Publish your first one today! 🤓 📝"
+    ></app-no-blogs>
     <div *ngFor="let blog of list_of_blogs" class="blog-container">
       <div class="blog-content">
         <h2>{{ blog.title }}</h2>
