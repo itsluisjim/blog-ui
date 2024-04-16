@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Blog } from './blog.model';
-import { HttpClient } from '@angular/common/http';
 import { map, tap } from 'rxjs';
 import { BlogService } from '../blog.service';
 
@@ -12,7 +11,7 @@ import { BlogService } from '../blog.service';
 export class BlogListComponent implements OnInit {
   isLoading = true;
 
-  constructor(public http: HttpClient, private blogService: BlogService) {}
+  constructor(private blogService: BlogService) {}
 
   public list_of_blogs: Blog[] = [];
 
