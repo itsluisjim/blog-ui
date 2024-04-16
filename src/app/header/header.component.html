@@ -5,6 +5,7 @@
         <a routerLinkActive="active" routerLink="/feed" class="header-button">Home</a>
         <a routerLinkActive="active" routerLink="/my-blogs" class="header-button">My Blogs</a>
         <a routerLinkActive="active" routerLink="/profile" class="header-button">Profile</a>
+        <a *ngIf="user.admin"  routerLinkActive="active" routerLink="/manage" class="header-button">Manage</a>
         <button class="header-button header-logout-button" (click)="onLogout()">Sign Out <fa-icon [icon]="faSignOut"></fa-icon></button>
       </div>
     </div>
