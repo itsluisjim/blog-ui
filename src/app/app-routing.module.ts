@@ -7,7 +7,7 @@ import { AccessGuard } from './shared/guards/access-guard';
 import { BlogCreateComponent } from './blogs/blog-create/blog-create.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { MyBlogsComponent } from './my-blogs/my-blogs.component';
-import { ManageBlogsComponent } from './manage-blogs/manage-blogs.component';
+import { AdminComponent } from './admin/admin.component';
 import { AdminGuard } from './shared/guards/admin-guard';
 
 const appRoutes: Routes = [
@@ -45,7 +45,7 @@ const appRoutes: Routes = [
   {
     path: 'manage',
     canActivate: [AdminGuard],
-    component: ManageBlogsComponent
+    component: AdminComponent
   },
   {
     path: 'auth',
