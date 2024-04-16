@@ -1,0 +1,33 @@
+
+<div class="container">
+    <div class="tab-header">
+      <button [class.active]="selectedTab === 'authors'" (click)="selectedTab = 'authors'">
+        Authors
+      </button>
+      <button [class.active]="selectedTab === 'blogs'" (click)="selectedTab = 'blogs'">
+        Blogs
+      </button>
+    </div>
+  
+    <div class="tab-content">
+      <div *ngIf="selectedTab === 'authors'">
+        <div class="item-box" *ngFor="let author of authors">
+          <div class="item-content">
+            <h3>{{ author.first }} {{author.last}}</h3>
+            <p>@{{ author.username }}</p>
+          </div>
+          <button class="delete-btn" (click)="deleteAuthor(author._id)">Delete</button>
+        </div>
+      </div>
+  
+      <div *ngIf="selectedTab === 'blogs'">
+        <div class="item-box" *ngFor="let blog of blogs">
+          <div class="item-content">
+            <h3>{{ blog.title }}</h3>
+            <p>{{ blog.content }}</p>
+          </div>
+          <button class="delete-btn">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
