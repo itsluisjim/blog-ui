@@ -12,10 +12,11 @@ import { SharedModule } from './shared/shared.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { MyBlogsComponent } from './my-blogs/my-blogs.component';
+import { ManageBlogsComponent } from './manage-blogs/manage-blogs.component';
 
 @NgModule({
   declarations: [
-    AppComponent, HeaderComponent, UserProfileComponent, MyBlogsComponent
+    AppComponent, HeaderComponent, UserProfileComponent, MyBlogsComponent, ManageBlogsComponent
   ],
   imports: [
     BrowserModule,

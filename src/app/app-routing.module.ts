@@ -7,6 +7,8 @@ import { AccessGuard } from './shared/guards/access-guard';
 import { BlogCreateComponent } from './blogs/blog-create/blog-create.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { MyBlogsComponent } from './my-blogs/my-blogs.component';
+import { ManageBlogsComponent } from './manage-blogs/manage-blogs.component';
+import { AdminGuard } from './shared/guards/admin-guard';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/feed', pathMatch: 'full' },
@@ -39,6 +41,11 @@ const appRoutes: Routes = [
     path: 'my-blogs',
     canActivate: [AuthGuard],
     component: MyBlogsComponent
+  },
+  {
+    path: 'manage',
+    canActivate: [AdminGuard],
+    component: ManageBlogsComponent
   },
   {
     path: 'auth',
