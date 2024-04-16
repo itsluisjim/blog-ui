@@ -5,7 +5,8 @@
     <div *ngIf="isLoading" style="width: 100vw; height: 50vh; display: grid; place-items: center;">
         <app-loading-spinner></app-loading-spinner>
     </div>
-    <div *ngIf="!isLoading" >
+    
+    <ng-container *ngIf="!isLoading">
         <app-no-blogs 
             class="no-blogs-available-container"
             *ngIf="list_of_blogs.length === 0? true: false"
@@ -27,5 +28,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </ng-container>
 </div>
